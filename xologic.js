@@ -1,9 +1,12 @@
 //tracker for all elements
 var playTracker;
 
-const huPlayer = 'O';
+const frPlayer = 'O';
+const secPlayer ='imgurl'
+//  true for ai player and false for second player
+const withComputer= true;
 const aiPlayer = 'X';
-
+var currentPlayer;
 const winList = [
     [0, 1, 2],
     [3, 4, 5],
@@ -14,24 +17,28 @@ const winList = [
     [0, 4, 8],
     [6, 4, 2]
 ]
-
+//get all xo squeres
 const cells = document.querySelectorAll('.cell');
 startGame();
-
+//hide dialog 
 function startGame() {
     $(".dialog").css('display', 'none');
+    //fill array with numbers from 0-9
     playTracker = Array.from(Array(9).keys());
     for (var i = 0; i < cells.length; i++) {
         cells[i].innerText = '';
+
         cells[i].style.removeProperty('background-color');
+
         cells[i].addEventListener('click', playerTurn, false);
     }
 }
 
 function playerTurn(square) {
     if (typeof playTracker[square.target.id] == 'number') {
-		turn(square.target.id, huPlayer)
-		if (!checkWin(playTracker, huPlayer) && !checkTie()) turn(bestSpot(), aiPlayer);
+		turn(square.target.id, frPlayer)
+        if (!checkWin(playTracker, frPlayer) && !checkTie()) 
+        turn(bestSpot(), aiPlayer);
 	}
 }
 
@@ -60,13 +67,13 @@ function checkWin(board, player) {
 function gameOver(gameWon) {
     for (let index of winList[gameWon.index]) {
         document.getElementById(index).style.backgroundColor =
-            gameWon.player == huPlayer ? "blue" : "red";
+            gameWon.player == frPlayer ? "blue" : "red";
     }
     for (var i = 0; i < cells.length; i++) {
         cells[i].removeEventListener('click', playerTurn, false);
     }
 
-	declareWinner(gameWon.player == huPlayer ? "You win!" : "You lose.");
+	declareWinner(gameWon.player == frPlayer ? "You win!" : "You lose.");
 
 }
 
@@ -98,7 +105,7 @@ function checkTie() {
 function minimax(newBoard, player) {
     var availSpots = emptySquares();
 
-    if (checkWin(newBoard, huPlayer)) {
+    if (checkWin(newBoard, frPlayer)) {
         return { score: -10 };
     } else if (checkWin(newBoard, aiPlayer)) {
         return { score: 10 };
@@ -112,7 +119,7 @@ function minimax(newBoard, player) {
         newBoard[availSpots[i]] = player;
 
         if (player == aiPlayer) {
-            var result = minimax(newBoard, huPlayer);
+            var result = minimax(newBoard, frPlayer);
             move.score = result.score;
         } else {
             var result = minimax(newBoard, aiPlayer);
