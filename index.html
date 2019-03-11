@@ -1,17 +1,81 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Game Play</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-    <script src="main.js"></script>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
+        integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
 </head>
+
 <body>
-<div>
-    
-</div>
-    
+    <!-- the game header countain 2 buttons change font and pause  -->
+    <header>
+        <div class="title">
+            <h1>WORD Puzzle Game </h1>
+            <h3>by Nora Alkhunifer </h3>
+        </div>
+        <div class="pause">
+            <!-- <img />
+        <img/> -->
+            <i class='fas fa-font' style='font-size:48px;color:black'></i>
+            <i class='fas fa-pause' style='font-size:48px;color:green'></i>
+        </div>
+    </header>
+    <!-- main game  -->
+    <div class="container">
+        <div class="word-list">
+            <h6>word list </h6>
+            <ol>
+                <li class="word-element"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ol>
+
+        </div>
+
+        <div class="game-play">
+            <table>
+                <tr>
+                    <td for='1' id='a' class='alpa'>A</td>
+                    <td for='2' id='c' class='alpa'>C</td>
+                    <td for='3' id='c' class='alpa'>S</td>
+                </tr>
+                <tr>
+                    <td for='4' id='n' class='alpa'>N</td>
+                    <td for='5' id='h' class='alpa'>H</td>
+                    <td for='6' id='h' class='alpa'>H</td>
+                </tr>
+                <tr>
+                    <td for='7' id='g' class='alpa'>G</td>
+                    <td for='8' id='g' class='alpa'>G</td>
+                    <td for='9' id='d' class='alpa'>D</td>
+                </tr>
+            </table>
+            </table>
+        </div>
+        <div class="elements">
+            <div class="time">
+                <i class='far fa-clock' style='font-size:48px;color:black'></i>
+                4:50
+
+            </div>
+            <div class="score">
+
+                <i class='fas fa-hippo' style='font-size:48px;color:black'></i>
+                56
+            </div>
+        </div>
+
+
+    </div>
+    <script src="main.js"></script>
+
 </body>
+
 </html>
