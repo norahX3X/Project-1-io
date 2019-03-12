@@ -2,9 +2,9 @@
 var playTracker;
 
 const frPlayer = 'O';
-const secPlayer ='imgurl'
+const secPlayer ='img'
 //  true for ai player and false for second player
-const withComputer= true;
+const withComputer= false;
 const aiPlayer = 'X';
 var currentPlayer;
 const winList = [
@@ -22,6 +22,7 @@ const cells = document.querySelectorAll('.cell');
 startGame();
 //hide dialog 
 function startGame() {
+    currentPlayer=1
     $(".dialog").css('display', 'none');
     //fill array with numbers from 0-9
     playTracker = Array.from(Array(9).keys());
@@ -33,11 +34,30 @@ function startGame() {
         cells[i].addEventListener('click', playerTurn, false);
     }
 }
-
+/*
+ 
+    if (typeof (tictactoe[hashtagId])=="number"){
+        tictactoe[hashtagId] = player;
+        document.getElementById(hashtagId).innerText = player;
+}
+   let gameWon = checkWin(tictactoe, player)
+    if (gameWon) {
+        if (gameWon.player == 'No Winner') {
+            catGame();
+        }
+        else  {
+            gameOver(gameWon);
+*/
 function playerTurn(square) {
     if (typeof playTracker[square.target.id] == 'number') {
-		turn(square.target.id, frPlayer)
-        if (!checkWin(playTracker, frPlayer) && !checkTie()) 
+        if(currentPlayer==2 && !withComputer){
+        turn(square.target.id, secPlayer)
+        currentPlayer=1;
+        }
+        else {turn(square.target.id, frPlayer)
+        currentPlayer=2;
+    }
+        if (!checkTie()&& withComputer) 
         turn(bestSpot(), aiPlayer);
 	}
 }
@@ -73,7 +93,7 @@ function gameOver(gameWon) {
         cells[i].removeEventListener('click', playerTurn, false);
     }
 
-	declareWinner(gameWon.player == frPlayer ? "You win!" : "You lose.");
+	declareWinner(gameWon.player == frPlayer || gameWon.player == secPlayer ? (gameWon.player+" win!") : "You lose.");
 
 }
 
@@ -151,4 +171,17 @@ function minimax(newBoard, player) {
     }
 
     return moves[bestMove];
+}
+function goHome(){
+    swal({
+        title: "Are you sure you want to go home?",
+        text: "your TURNES will be reset",
+        buttons: ["keep playing", "yes JUST GO HOME"],
+      }).then((go) => {
+        if (go) {
+            window.location.href = "home.html"
+        } else {
+            console.log("g")
+        }
+      });
 }
