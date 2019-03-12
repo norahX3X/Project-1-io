@@ -2,12 +2,15 @@ body{
     font-family: 'Courier New', Courier, monospace;
     
     }
-    
+    /* .player-name{
+        box-shadow: 0 9px 20px 0 rgb(255, 230, 7);
+
+    } */
 header{
         height: 10%;
         display: flex;
         justify-content:space-between;
-        background-color: #4ed6d6;
+        background-color: #ffee00;
     }
    
  .title{
@@ -30,6 +33,7 @@ header{
     display: flex;
     justify-content:center;
     align-content: center;
+
         }
 
 .container{

@@ -10,10 +10,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
         integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
-        <link rel="stylesheet" type="text/css" href="csshake.min.css">
-<!-- or from surge.sh -->
-<link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="csshake.min.css">
+    <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
@@ -29,44 +28,49 @@
             <i onClick="goHome()" class='fas fa-home' style='font-size:48px;color:black'></i>
         </div>
     </header>
-    <div class="game-header">
-        <p class="turn">turn</p>
-    </div>
 
     <div class="container">
         <div class="player1">
-            <h6>player 1 name </h6>
-            <p>scores</p>
+            <h2 id="player1name" class="player-name">player 1 name </h2>
+            <p class="player-score">Wins
+                    <span id="player1Score">0</span>
+                    Turnes
+                    <i class='fas fa-bug' style='font-size:20px;color:black'></i>
 
+                </p>
         </div>
 
         <div class="game-play">
-                <table>
-                        <tr>
-                            <td class="cell" id="0"></td>
-                            <td class="cell" id="1"></td>
-                            <td class="cell" id="2"></td>
-                        </tr>
-                        <tr>
-                            <td class="cell" id="3"></td>
-                            <td class="cell" id="4"></td>
-                            <td class="cell" id="5"></td>
-                        </tr>
-                        <tr>
-                            <td class="cell" id="6"></td>
-                            <td class="cell" id="7"></td>
-                            <td class="cell" id="8"></td>
-                        </tr>
-                    </table>
-                    <div class="dialog shake-slow" >
-                        <p class="message"></p>
-                            <button onClick="startGame()">Replay</button>
-                    </div>
+            <table>
+                <tr>
+                    <td class="cell" id="0"></td>
+                    <td class="cell" id="1"></td>
+                    <td class="cell" id="2"></td>
+                </tr>
+                <tr>
+                    <td class="cell" id="3"></td>
+                    <td class="cell" id="4"></td>
+                    <td class="cell" id="5"></td>
+                </tr>
+                <tr>
+                    <td class="cell" id="6"></td>
+                    <td class="cell" id="7"></td>
+                    <td class="cell" id="8"></td>
+                </tr>
+            </table>
+            <!-- <div class="dialog shake-slow">
+                <p class="message"></p>
+                <button onClick="startGame()">Replay</button>
+            </div> 	-->
         </div>
         <div class="player2">
-            <h6>player 2 name </h6>
-            <p>scores</p>
+            <h2 id="player2name" class="player-name">player 2 name </h2>
+            <p class="player-score">Wins
+                <span id="player2Score"></span>
+                Turnes
+                <i class='fas fa-bug' style='font-size:20px;color:black'></i>
 
+            </p>
 
         </div>
     </div>

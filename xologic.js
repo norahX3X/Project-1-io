@@ -2,11 +2,19 @@
 var playTracker;
 
 const frPlayer = 'O';
-const secPlayer ='img'
+const frplayerName = "Nora"
+const secPlayer = 'img'
+const secplayerName = "Sara"
+
 //  true for ai player and false for second player
-const withComputer= false;
+const withComputer = false// true;
 const aiPlayer = 'X';
+const aiplayerName = "Super Doper Bug Robotics"
+
 var currentPlayer;
+
+
+//all passible win moves 
 const winList = [
     [0, 1, 2],
     [3, 4, 5],
@@ -20,12 +28,15 @@ const winList = [
 //get all xo squeres
 const cells = document.querySelectorAll('.cell');
 startGame();
-//hide dialog 
+
 function startGame() {
-    currentPlayer=1
-    $(".dialog").css('display', 'none');
+    currentPlayer = 1
+    $("#player1name").css("box-shadow" , "0 9px 20px 0 rgb(255, 230, 7)")
+
+    //$(".dialog").css('display', 'none');
     //fill array with numbers from 0-9
     playTracker = Array.from(Array(9).keys());
+    //reclear game play
     for (var i = 0; i < cells.length; i++) {
         cells[i].innerText = '';
 
@@ -33,33 +44,35 @@ function startGame() {
 
         cells[i].addEventListener('click', playerTurn, false);
     }
+    $("#player1name").text( frplayerName);
+    if(withComputer)
+    $("#player2name").text(aiplayerName);
+    else 
+    $("#player2name").text(secplayerName);
+
+
 }
-/*
- 
-    if (typeof (tictactoe[hashtagId])=="number"){
-        tictactoe[hashtagId] = player;
-        document.getElementById(hashtagId).innerText = player;
-}
-   let gameWon = checkWin(tictactoe, player)
-    if (gameWon) {
-        if (gameWon.player == 'No Winner') {
-            catGame();
-        }
-        else  {
-            gameOver(gameWon);
-*/
 function playerTurn(square) {
     if (typeof playTracker[square.target.id] == 'number') {
-        if(currentPlayer==2 && !withComputer){
-        turn(square.target.id, secPlayer)
-        currentPlayer=1;
+        if (currentPlayer == 2 && !withComputer && !checkWin(playTracker, secPlayer)) {
+            turn(square.target.id, secPlayer)
+            currentPlayer = 1;
+
+            $("#player1name").css("box-shadow" , "0 9px 20px 0 rgb(255, 230, 7)")
+            $("#player2name").css("box-shadow" ,"")
+
+
         }
-        else {turn(square.target.id, frPlayer)
-        currentPlayer=2;
+        else {
+            $("#player2name").css("box-shadow" , "0 9px 20px 0 rgb(255, 230, 7)")
+            $("#player1name").css("box-shadow" , "")
+
+            turn(square.target.id, frPlayer)
+            currentPlayer = 2;
+        }
+        if (!checkWin(playTracker, frPlayer) && !checkTie() && withComputer)
+            turn(bestSpot(), aiPlayer);
     }
-        if (!checkTie()&& withComputer) 
-        turn(bestSpot(), aiPlayer);
-	}
 }
 
 function turn(squareId, player) {
@@ -86,20 +99,51 @@ function checkWin(board, player) {
 
 function gameOver(gameWon) {
     for (let index of winList[gameWon.index]) {
+        //shake it if its pic 
         document.getElementById(index).style.backgroundColor =
             gameWon.player == frPlayer ? "blue" : "red";
     }
     for (var i = 0; i < cells.length; i++) {
         cells[i].removeEventListener('click', playerTurn, false);
     }
+if (gameWon.player == frPlayer){
+    showAlart(("YAAAY "+ frplayerName + " wins!"), "YOU DID IT") //+chosen bug name 
+    var score = document.getElementById('player1Score');
+    var number = score.innerHTML;
+    number++;
+    score.innerHTML = number;
 
-	declareWinner(gameWon.player == frPlayer || gameWon.player == secPlayer ? (gameWon.player+" win!") : "You lose.");
+}
+else if (gameWon.player == secPlayer){
+    showAlart(("YAAAY "+ secplayerName + " wins!"), "YOU DID IT") //+chosen bug name 
+    var score = document.getElementById('player2Score');
+    var number = score.innerHTML;
+    number++;
+    score.innerHTML = number;
+}
+else{
+    showAlart("You lose.", "YOU CAN'T compeat me HAHAHAha") 
+    var score = document.getElementById('player2Score');
+    var number = score.innerHTML;
+    number++;
+    score.innerHTML = number;
+}
 
 }
 
-function declareWinner(who) {
-    document.querySelector(".dialog").style.display = "block";
-    document.querySelector(".dialog .message").innerText = who;
+function showAlart(mainTitle, message) {
+    // document.querySelector(".dialog").style.display = "block";
+    // document.querySelector(".dialog .message").innerText = who;
+    swal({
+        title: mainTitle,
+        text: message,
+        button: "Rematch"
+    }).then((go) => {
+        if (go)
+        startGame()
+            //location.reload();
+
+    });
 }
 
 function emptySquares() {
@@ -116,7 +160,7 @@ function checkTie() {
             cells[i].style.backgroundColor = "green";
             cells[i].removeEventListener('click', playerTurn, false);
         }
-        declareWinner("Tie Game!")
+        showAlart("Tie Game!", "let's ply again!")
         return true;
     }
     return false;
@@ -172,16 +216,15 @@ function minimax(newBoard, player) {
 
     return moves[bestMove];
 }
-function goHome(){
+function goHome() {
+    // save last scores in database cookies, firebase or any thing else !!
     swal({
         title: "Are you sure you want to go home?",
         text: "your TURNES will be reset",
         buttons: ["keep playing", "yes JUST GO HOME"],
-      }).then((go) => {
+    }).then((go) => {
         if (go) {
             window.location.href = "home.html"
-        } else {
-            console.log("g")
         }
-      });
+    });
 }
