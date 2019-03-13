@@ -1,0 +1,45 @@
+body{
+    font-family: 'Courier New', Courier, monospace;
+    background-image: url('background.png');
+    background-repeat: no-repeat;
+    background-position-x: center; 
+    background-position-y: center;
+    background-color: rgb(181, 217, 107);
+    background-size: cover ; 
+    color:rgb(30, 83, 17);
+    height: -webkit-fill-available;
+    }
+
+header{
+        height: 10%;
+        display: flex;
+        justify-content:space-between;
+        background-color: rgba(131, 208, 50, 0.3);
+    }
+    button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        background-color: rgba(131, 208, 50, 0.3);
+      }
+ .title{
+            display: flex;
+        
+        }
+     
+.title h3{
+            padding-top: 30px;
+        }
+        
+
+.container{
+        height: 90%;
+        padding-top: 3%;
+        display: flex;
+        justify-content:space-between;
+        }

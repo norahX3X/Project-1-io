@@ -1,18 +1,31 @@
 body{
     font-family: 'Courier New', Courier, monospace;
-    
-    }
-    /* .player-name{
-        box-shadow: 0 9px 20px 0 rgb(255, 230, 7);
+    /* background-image: url('background-nobugs.png'); */
+    background-image: url('background2-01.png');
 
-    } */
+    background-repeat: no-repeat;
+    background-position: center; /* Center the image */
+    background-color: rgb(181, 217, 107);
+    background-size: cover; 
+    color:rgb(30, 83, 17);
+    height: -webkit-fill-available;
+
+    }
+
 header{
         height: 10%;
         display: flex;
         justify-content:space-between;
-        background-color: #ffee00;
+        background-color: rgba(131, 208, 50, 0.3);
     }
-   
+    img{
+       /* height:  90px;
+       width:  90px;
+       text-align:  center;
+       vertical-align:  middle;
+       font-family:  "Comic Sans MS", cursive, sans-serif;
+       cursor: pointer;  */
+    }
  .title{
             display: flex;
         
@@ -29,12 +42,7 @@ header{
             /* align-content: 
             float: right; */
         }
-.game-header{
-    display: flex;
-    justify-content:center;
-    align-content: center;
 
-        }
 
 .container{
         height: 90%;
@@ -53,7 +61,7 @@ header{
 
 
         td {
-            border:  2px solid #333;
+            border:  2px solid rgb(30, 83, 17);
             height:  100px;
             width:  100px;
             text-align:  center;
@@ -84,19 +92,3 @@ header{
             border-right: 0;
         }
         
-        .dialog {
-            display: none;
-          width: 300px;
-          height: 200px;
-          top: 200px;
-          background-color: rgba(74, 6, 199, 0.8);
-          position: absolute;
-          left: 45%;
-          margin-left: -100px;
-          padding-top: 50px;
-          padding-bottom: 50px;
-          text-align: center;
-          border-radius: 10px;
-          color: white;
-          font-size: 2em;
-        }

@@ -1,16 +1,21 @@
 //tracker for all elements
 var playTracker;
+//frist player attributes
 
 const frPlayer = 'O';
-const frplayerName = "Nora"
-const secPlayer = 'img'
-const secplayerName = "Sara"
+const frplayerName = sessionStorage.getItem('firstPlayerName');
+const player1Bug = 'bugs/ladybug.png' //sessionStorage.getItem('firstPlayerBug')
+//second player attributes
+const secPlayer = 'X'
+const secplayerName = sessionStorage.getItem('secondPlayerName')
+const player2Bug = 'bugs/csnail.png'//sessionStorage.getItem('secondPlayerBug')
 
-//  true for ai player and false for second player
-const withComputer = false// true;
-const aiPlayer = 'X';
+// true for ai player and false for second player
+const withComputer = (sessionStorage.getItem('playWithComputer') == 'true')
+const aiPlayer = 'Y';
 const aiplayerName = "Super Doper Bug Robotics"
-
+const playerAiBug = 'roboticsBug.png'
+//to track current player 
 var currentPlayer;
 
 
@@ -29,9 +34,11 @@ const winList = [
 const cells = document.querySelectorAll('.cell');
 startGame();
 
+//reset the XO table 
 function startGame() {
     currentPlayer = 1
-    $("#player1name").css("box-shadow" , "0 9px 20px 0 rgb(255, 230, 7)")
+    $("#player1name").css("box-shadow", "0 9px 20px 0 rgb(245, 162, 44)")
+    $("#player2name").css("box-shadow", "")
 
     //$(".dialog").css('display', 'none');
     //fill array with numbers from 0-9
@@ -39,47 +46,56 @@ function startGame() {
     //reclear game play
     for (var i = 0; i < cells.length; i++) {
         cells[i].innerText = '';
-
-        cells[i].style.removeProperty('background-color');
-
+        $(cells[i]).find('img').removeClass("shake-slow");
         cells[i].addEventListener('click', playerTurn, false);
     }
-    $("#player1name").text( frplayerName);
-    if(withComputer)
-    $("#player2name").text(aiplayerName);
-    else 
-    $("#player2name").text(secplayerName);
+    $("#player1name").text(frplayerName);
+    if (withComputer)
+        $("#player2name").text(aiplayerName);
+    else
+        $("#player2name").text(secplayerName);
 
 
 }
+//for each click from user this fuction will be called 
 function playerTurn(square) {
     if (typeof playTracker[square.target.id] == 'number') {
-        if (currentPlayer == 2 && !withComputer && !checkWin(playTracker, secPlayer)) {
-            turn(square.target.id, secPlayer)
-            currentPlayer = 1;
 
-            $("#player1name").css("box-shadow" , "0 9px 20px 0 rgb(255, 230, 7)")
-            $("#player2name").css("box-shadow" ,"")
+        if (currentPlayer == 2 && !checkTie() && !checkWin(playTracker, frPlayer)) {
+            if (withComputer) {
+                turn(square.target.id, aiPlayer, playerAiBug);
+            }
+            else {
+                turn(square.target.id, secPlayer, player2Bug)
+                checkWin(playTracker, secPlayer)
+            }
+
+            currentPlayer = 1;
+            $("#player1name").css("box-shadow", "0 9px 20px 0 rgb(245, 162, 44)")
+            $("#player2name").css("box-shadow", "")
 
 
         }
         else {
-            $("#player2name").css("box-shadow" , "0 9px 20px 0 rgb(255, 230, 7)")
-            $("#player1name").css("box-shadow" , "")
-
-            turn(square.target.id, frPlayer)
+            $("#player2name").css("box-shadow", "0 9px 20px 0 rgb(235, 66, 24)")
+            $("#player1name").css("box-shadow", "")
+            turn(square.target.id, frPlayer, player1Bug)
             currentPlayer = 2;
+            if (withComputer && !checkTie()) {
+                playerTurn(bestSpot());
+            }
         }
-        if (!checkWin(playTracker, frPlayer) && !checkTie() && withComputer)
-            turn(bestSpot(), aiPlayer);
     }
 }
 
-function turn(squareId, player) {
+function turn(squareId, player, playerBug) {
     playTracker[squareId] = player;
-    document.getElementById(squareId).innerText = player;
+
+    var img = `<img src='${playerBug}' alt= '${player}' />`;
+    $(`#${squareId}`).append(img);
+
     let gameWon = checkWin(playTracker, player)
-    if (gameWon) gameOver(gameWon)
+    if (gameWon) gameEnd(gameWon)
 }
 
 function checkWin(board, player) {
@@ -97,37 +113,37 @@ function checkWin(board, player) {
     return gameWon;
 }
 
-function gameOver(gameWon) {
+function gameEnd(gameWon) {
     for (let index of winList[gameWon.index]) {
         //shake it if its pic 
-        document.getElementById(index).style.backgroundColor =
-            gameWon.player == frPlayer ? "blue" : "red";
+        /// document.getElementById().firstChild.classList.add("slow-shake");
+        $(`#${index}`).find('img').addClass("shake-slow");
     }
     for (var i = 0; i < cells.length; i++) {
         cells[i].removeEventListener('click', playerTurn, false);
     }
-if (gameWon.player == frPlayer){
-    showAlart(("YAAAY "+ frplayerName + " wins!"), "YOU DID IT") //+chosen bug name 
-    var score = document.getElementById('player1Score');
-    var number = score.innerHTML;
-    number++;
-    score.innerHTML = number;
+    if (gameWon.player == frPlayer) {
+        showAlart(("YAAAY " + frplayerName + " wins!"), "YOU DID IT") //+chosen bug name 
+        var score = document.getElementById('player1Score');
+        var number = score.innerHTML;
+        number++;
+        score.innerHTML = number;
 
-}
-else if (gameWon.player == secPlayer){
-    showAlart(("YAAAY "+ secplayerName + " wins!"), "YOU DID IT") //+chosen bug name 
-    var score = document.getElementById('player2Score');
-    var number = score.innerHTML;
-    number++;
-    score.innerHTML = number;
-}
-else{
-    showAlart("You lose.", "YOU CAN'T compeat me HAHAHAha") 
-    var score = document.getElementById('player2Score');
-    var number = score.innerHTML;
-    number++;
-    score.innerHTML = number;
-}
+    }
+    else if (gameWon.player == secPlayer) {
+        showAlart(("YAAAY " + secplayerName + " wins!"), "YOU DID IT") //+chosen bug name 
+        var score = document.getElementById('player2Score');
+        var number = score.innerHTML;
+        number++;
+        score.innerHTML = number;
+    }
+    else {
+        showAlart("You lose.", "YOU CAN'T compete me HAHAHAha")
+        var score = document.getElementById('player2Score');
+        var number = score.innerHTML;
+        number++;
+        score.innerHTML = number;
+    }
 
 }
 
@@ -139,9 +155,8 @@ function showAlart(mainTitle, message) {
         text: message,
         button: "Rematch"
     }).then((go) => {
-        if (go)
         startGame()
-            //location.reload();
+        //location.reload();
 
     });
 }
@@ -151,13 +166,14 @@ function emptySquares() {
 }
 
 function bestSpot() {
-    return minimax(playTracker, aiPlayer).index;
+    return { target: document.getElementById(`${minimax(playTracker, aiPlayer).index}`) }
+    // return $(`#${minimax(playTracker, aiPlayer).index}`);
 }
-
 function checkTie() {
     if (emptySquares().length == 0) {
         for (var i = 0; i < cells.length; i++) {
-            cells[i].style.backgroundColor = "green";
+            // $(`#${index}`).addClass("shake-slow");
+            $(cells[i]).find('img').addClass("shake-slow");
             cells[i].removeEventListener('click', playerTurn, false);
         }
         showAlart("Tie Game!", "let's ply again!")
@@ -165,7 +181,7 @@ function checkTie() {
     }
     return false;
 }
-
+// main max algorithim is one of AI algorithems to find best path(movee) passible 
 function minimax(newBoard, player) {
     var availSpots = emptySquares();
 
@@ -194,7 +210,6 @@ function minimax(newBoard, player) {
 
         moves.push(move);
     }
-
     var bestMove;
     if (player === aiPlayer) {
         var bestScore = -10000;
@@ -213,7 +228,6 @@ function minimax(newBoard, player) {
             }
         }
     }
-
     return moves[bestMove];
 }
 function goHome() {
