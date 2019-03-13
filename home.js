@@ -1,16 +1,18 @@
 //let player choses between play with computer or play with frind in his computer or play online!
 //take players name
+
+
 sessionStorage.removeItem('playWithComputer');
 //console
 function withAI(){
 
 //take player1 name and bug 
-sessionStorage.setItem('firstPlayerName','name from alart!')
+sessionStorage.setItem('firstPlayerName','Nora')
 sessionStorage.setItem('playWithComputer',true)
-sessionStorage.getItem('secondPlayerBug')
+sessionStorage.setItem('firstPlayerBug','bugs/ladybug.png')
 
 
-//goToXO();
+goToXO();
 
 
 // const onPick = value => {
@@ -51,49 +53,71 @@ sessionStorage.getItem('secondPlayerBug')
 //     swal(JSON.stringify(result))
 //   }).catch(swal.noop)
 
-swal({
-    title: "Teste",   
-    text: "Test:",   
-    type: "input",
-    showCancelButton: true,   
-    closeOnConfirm: false,   
-    animation: "slide-from-top",   
-    inputPlaceholder: "User" 
-},
-function(inputValue){
-    if (inputValue === false) return false;      
-    if (inputValue === "") {
-        swal.showInputError("Error");     
-        return false;
-    }
-    swal({
-        title: "Teste",   
-        text: "E-mail:",   
-        type: "input",
-        showCancelButton: true,   
-        closeOnConfirm: false,   
-        animation: "slide-from-top",   
-        inputPlaceholder: "Digite seu e-mail" 
-    },
-    function(inputValue){
-        if (inputValue === false) return false;      
-        if (inputValue === "") {     
-            swal.showInputError("E-mail error");     
-            return false;
-        }
-        swal("Nice!", "You wrote: " + inputValue, "success"); 
-    });
-});
+// swal({
+//     title: "Teste",   
+//     text: "Test:",   
+//     type: "input",
+//     showCancelButton: true,   
+//     closeOnConfirm: false,   
+//     animation: "slide-from-top",   
+//     inputPlaceholder: "User" 
+// },
+// function(inputValue){
+//     if (inputValue === false) return false;      
+//     if (inputValue === "") {
+//         swal.showInputError("Error");     
+//         return false;
+//     }
+//     swal({
+//         title: "Teste",   
+//         text: "E-mail:",   
+//         type: "input",
+//         showCancelButton: true,   
+//         closeOnConfirm: false,   
+//         animation: "slide-from-top",   
+//         inputPlaceholder: "Digite seu e-mail" 
+//     },
+//     function(inputValue){
+//         if (inputValue === false) return false;      
+//         if (inputValue === "") {     
+//             swal.showInputError("E-mail error");     
+//             return false;
+//         }
+//         swal("Nice!", "You wrote: " + inputValue, "success"); 
+//     });
+// });
+// Swal.mixin({
+//     input: 'text',
+//     confirmButtonText: 'Next &rarr;',
+//     showCancelButton: true,
+//     progressSteps: ['1', '2', '3']
+//   }).queue([
+//     {
+//       title: 'Question 1',
+//       text: 'Chaining swal2 modals is easy'
+//     },
+//     'Question 2',
+//     'Question 3'
+//   ]).then((result) => {
+//     if (result.value) {
+//       Swal.fire({
+//         title: 'All done!',
+//         html:
+//           'Your answers: <pre><code>' +
+//             JSON.stringify(result.value) +
+//           '</code></pre>',
+//         confirmButtonText: 'Lovely!'
+//       })
+//     }
+//   })
 }
 
 function withLocalFriend(){
     sessionStorage.setItem('playWithComputer',false)
-
-    
-    sessionStorage.setItem('firstPlayerName','name from alart!')
-    sessionStorage.setItem('firstPlayerBug','')
-    sessionStorage.setItem('secondPlayerName','')
-    sessionStorage.setItem('secondPlayerBug','')
+    sessionStorage.setItem('firstPlayerName','Nora')
+    sessionStorage.setItem('firstPlayerBug','bugs/ladybug.png')
+    sessionStorage.setItem('secondPlayerName','Sara')
+    sessionStorage.setItem('secondPlayerBug','bugs/csnail.png')
 
     //take 2 players names and bugs 
     goToXO()

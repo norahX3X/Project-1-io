@@ -4,11 +4,11 @@ var playTracker;
 
 const frPlayer = 'O';
 const frplayerName = sessionStorage.getItem('firstPlayerName');
-const player1Bug = 'bugs/ladybug.png' //sessionStorage.getItem('firstPlayerBug')
+const player1Bug = sessionStorage.getItem('firstPlayerBug')
 //second player attributes
 const secPlayer = 'X'
 const secplayerName = sessionStorage.getItem('secondPlayerName')
-const player2Bug = 'bugs/csnail.png'//sessionStorage.getItem('secondPlayerBug')
+const player2Bug = sessionStorage.getItem('secondPlayerBug')
 
 // true for ai player and false for second player
 const withComputer = (sessionStorage.getItem('playWithComputer') == 'true')
@@ -62,6 +62,11 @@ function playerTurn(square) {
     if (typeof playTracker[square.target.id] == 'number') {
 
         if (currentPlayer == 2 && !checkTie() && !checkWin(playTracker, frPlayer)) {
+            currentPlayer = 1;
+            $("#player1name").css("box-shadow", "0 9px 20px 0 rgb(245, 162, 44)")
+            $("#player2name").css("box-shadow", "")
+
+
             if (withComputer) {
                 turn(square.target.id, aiPlayer, playerAiBug);
             }
@@ -70,18 +75,14 @@ function playerTurn(square) {
                 checkWin(playTracker, secPlayer)
             }
 
-            currentPlayer = 1;
-            $("#player1name").css("box-shadow", "0 9px 20px 0 rgb(245, 162, 44)")
-            $("#player2name").css("box-shadow", "")
-
-
+           
         }
         else {
             $("#player2name").css("box-shadow", "0 9px 20px 0 rgb(235, 66, 24)")
             $("#player1name").css("box-shadow", "")
             turn(square.target.id, frPlayer, player1Bug)
             currentPlayer = 2;
-            if (withComputer && !checkTie()) {
+            if (! checkWin(playTracker, frPlayer)&&!checkTie()&& withComputer ) {
                 playerTurn(bestSpot());
             }
         }
