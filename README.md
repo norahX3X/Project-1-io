@@ -3,7 +3,7 @@
 ## technologies used
 I used VS as editor and git hub as virtion control tool 
 ## approach taken
-the them is bugs 
+the theme is bugs 
 the game hase 2 pathes one with local friend and the other with computer player 
 I used min max algorithem for AI player  
 ## installation instructions
