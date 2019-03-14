@@ -53,3 +53,7 @@ function win() {
 //    showScene("Game");
 
 }
+function gotorealgame(){
+    window.location.href = "home.html"
+
+}
