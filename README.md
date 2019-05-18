@@ -5,7 +5,12 @@ I used VS as editor and GitHub as version control tool
 ## approach taken
 the theme is bugs 
 the game has 2 paths one with local friend and the other with computer player 
+
+### option to play against the AI
+There is an option to play against the computer.
 I used min max algorithm for the AI player  
+
+
 ## installation instructions
 after you change directory to desired folder using 
 ```
